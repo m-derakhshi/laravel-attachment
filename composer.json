@@ -3,7 +3,7 @@
   "description": "popular helpers",
   "autoload": {
     "psr-4": {
-      "Mderakhshi\\Helpers\\": "src/"
+      "MDerakhshi\\Helpers\\": "src/"
     }
   },
   "authors": [
