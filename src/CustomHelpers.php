@@ -5,6 +5,19 @@ namespace Mderakhshi;
 class CustomHelpers
 {
 
+    public static function makeDirectoryPath($path): void
+    {
+        if ( ! file_exists($path) || ! is_dir($path)) {
+            $newPath = '/';
+            foreach (explode('/', $path) as $route) {
+                $newPath .= $route.'/';
+                if ( ! file_exists($newPath) || ! is_dir($newPath)) {
+                    mkdir($newPath);
+                }
+            }
+        }
+    }
+
     public static function convertHtmlAttributes(array $data, array $acceptableKeys = null, array $aliasKeys = null): ?string
     {
         $responseString = null;
