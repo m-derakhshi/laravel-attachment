@@ -2,7 +2,7 @@
 
 namespace Mderakhshi;
 
-class Helpers
+class CustomHelpers
 {
 
     public static function convertHtmlAttributes(array $data, array $acceptableKeys = null, array $aliasKeys = null): ?string
