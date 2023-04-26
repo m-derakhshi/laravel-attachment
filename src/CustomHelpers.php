@@ -1,6 +1,6 @@
 <?php
 
-namespace MDerakhshi;
+namespace MDerakhshi\Helpers;
 
 class CustomHelpers
 {
