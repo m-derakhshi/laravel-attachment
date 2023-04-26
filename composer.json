@@ -1,0 +1,16 @@
+{
+  "name": "mderakhshi/helpers",
+  "description": "popular helpers",
+  "autoload": {
+    "psr-4": {
+      "Mderakhshi\\Helpers\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Masoud Derakhshi",
+      "email": "mderakhshi1992@gmail.com"
+    }
+  ],
+  "require": {}
+}
