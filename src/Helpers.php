@@ -5,7 +5,7 @@ namespace Mderakhshi;
 class Helpers
 {
 
-    public function convertHtmlAttributes(array $data, array $acceptableKeys = null, array $aliasKeys = null): ?string
+    public static function convertHtmlAttributes(array $data, array $acceptableKeys = null, array $aliasKeys = null): ?string
     {
         $responseString = null;
         foreach ($data as $key => $value) {
