@@ -9,14 +9,14 @@ use Illuminate\Support\Carbon;
 class DatetimeUTC implements CastsAttributes
 {
 
-    public function get(Model $model, string $key, mixed $value, array $attributes): ?string
+    public function get(Model $model, string $key, mixed $value, array $attributes): Carbon|null|string
     {
-        return ! empty($value) ? Carbon::parse($value)->shiftTimezone('UTC')->setTimezone(config('app.timezone', 'UTC'))->toDateTimeString() : null;
+        return ! empty($value) ? Carbon::parse($value)->shiftTimezone('UTC')->setTimezone(config('app.timezone', 'UTC')) : null;
     }
 
     public function set(Model $model, string $key, mixed $value, array $attributes): ?string
     {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $value)->shiftTimezone(config('app.timezone', 'UTC'))->setTimezone('UTC') ?? null;
+        return Carbon::createFromFormat('Y-m-d H:i:s', $value)->shiftTimezone(config('app.timezone', 'UTC'))->setTimezone('UTC')->toDateTimeString() ?? null;
     }
 
 }
