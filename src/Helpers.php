@@ -1,8 +1,8 @@
 <?php
 
-namespace MDerakhshi\Helpers;
+namespace MDerakhshi\Core;
 
-class CustomHelpers
+class Helpers
 {
 
     public static function makeDirectoryPath($path): void

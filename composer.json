@@ -3,7 +3,7 @@
   "description": "popular helpers",
   "autoload": {
     "psr-4": {
-      "MDerakhshi\\Helpers\\": "src/"
+      "MDerakhshi\\Core\\": "src/"
     }
   },
   "authors": [
@@ -12,5 +12,8 @@
       "email": "mderakhshi1992@gmail.com"
     }
   ],
-  "require": {}
+  "require": {
+    "php": "^8.1",
+    "laravel/framework": "^10.8"
+  }
 }
