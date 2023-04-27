@@ -1,6 +1,6 @@
 <?php
 
-namespace MDerakhshi\Core;
+namespace MDerakhshi\LaravelAttachment;
 
 class Helpers
 {

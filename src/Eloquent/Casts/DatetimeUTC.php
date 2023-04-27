@@ -1,6 +1,6 @@
 <?php
 
-namespace MDerakhshi\Core\Eloquent\Casts;
+namespace MDerakhshi\LaravelAttachment\Eloquent\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;

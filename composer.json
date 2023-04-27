@@ -1,9 +1,9 @@
 {
-  "name": "mderakhshi/helpers",
+  "name": "mderakhshi/laravel-attachment",
   "description": "popular helpers",
   "autoload": {
     "psr-4": {
-      "MDerakhshi\\Core\\": "src/"
+      "MDerakhshi\\LaravelAttachment\\": "src/"
     }
   },
   "authors": [
