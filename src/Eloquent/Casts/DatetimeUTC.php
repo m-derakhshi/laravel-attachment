@@ -26,7 +26,7 @@ class DatetimeUTC implements CastsAttributes
         }
 
         if ( ! $value instanceof CarbonInterface) {
-            $value = Carbon::instance($value);
+            $value = Carbon::parse($value);
         }
 
         return $value->shiftTimezone(config('app.timezone', 'UTC'))->utc()->toDateTimeString() ?? null;
