@@ -56,7 +56,7 @@ class Helpers
             ) {
                 continue;
             }
-            $responseString .= $value === true ? $key.' ' : $key.'="'.$value.'" ';
+            $responseString .= ' '.($value === true ? $key : $key.'="'.$value.'"');
         }
 
         return $responseString;
