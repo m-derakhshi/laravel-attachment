@@ -5,7 +5,7 @@ namespace MDerakhshi\LaravelAttachment;
 class Helpers
 {
 
-    function escapeUrl(string $url): string
+    public static function escapeUrl(string $url): string
     {
         $url          = parse_url($url);
         $url['path']  = $url['path'] ?? '';
