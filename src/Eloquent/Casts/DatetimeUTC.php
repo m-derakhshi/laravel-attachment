@@ -19,7 +19,7 @@ class DatetimeUTC implements CastsAttributes
         return Carbon::parse($value)->shiftTimezone('UTC')->setTimezone(config('app.timezone', 'UTC'));
     }
 
-    public function set(Model $model, string $key, mixed $value, array $attributes): ?string
+    public function set(Model $model, string $key, mixed $value, array $attributes): ?Carbon
     {
         if (is_null($value)) {
             return null;
@@ -29,7 +29,7 @@ class DatetimeUTC implements CastsAttributes
             $value = Carbon::parse($value);
         }
 
-        return $value->shiftTimezone(config('app.timezone', 'UTC'))->utc()->toDateTimeString() ?? null;
+        return $value->utc() ?? null;
     }
 
 }
