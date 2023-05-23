@@ -1,5 +1,5 @@
 {
-  "name": "mderakhshi/laravel-attachment",
+  "name": "m-derakhshi/laravel-attachment",
   "description": "popular helpers",
   "autoload": {
     "psr-4": {
