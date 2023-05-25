@@ -39,6 +39,11 @@ class Helpers
         }
     }
 
+    public static function addSuffixToInputName(string $key, string $suffix): string
+    {
+        return (str_contains($key, '.') || str_contains($key, '[')) ? preg_replace('@^(\w+)([.\[])@', '\\1_'.$suffix.'\\2', $key) : $key.'_'.$suffix;
+    }
+
     public static function convertHtmlAttributes(array $data, array $acceptableKeys = null, array $aliasKeys = null): ?string
     {
         $responseString = null;

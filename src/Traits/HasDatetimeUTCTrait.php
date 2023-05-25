@@ -3,6 +3,7 @@
 namespace MDerakhshi\LaravelAttachment\Traits;
 
 use MDerakhshi\LaravelAttachment\Eloquent\Casts\DatetimeUTC;
+
 trait HasDatetimeUTCTrait
 {
 
