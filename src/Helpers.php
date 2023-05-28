@@ -39,9 +39,11 @@ class Helpers
         }
     }
 
-    public static function addSuffixToInputName(string $key, string $suffix): string
+    public static function addSuffixToParentEntryName(string $name, string $suffix, string $separator = '_'): string
     {
-        return (str_contains($key, '.') || str_contains($key, '[')) ? preg_replace('@^(\w+)([.\[])@', '\\1_'.$suffix.'\\2', $key) : $key.'_'.$suffix;
+        $response = (str_contains($name, '.') || str_contains($name, '[')) ? preg_replace('@^(\w+)([.\[])@', '\\1'.$separator.$suffix.'\\2', $name) : $name.$separator.$suffix;
+
+        return str_replace('[]', '', trim($response, '.'));
     }
 
     public static function convertHtmlAttributes(array $data, array $acceptableKeys = null, array $aliasKeys = null): ?string
