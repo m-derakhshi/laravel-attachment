@@ -16,9 +16,9 @@ class SocialitesYoutubeProvider extends AbstractProvider implements ProviderInte
      * {@inheritdoc}
      */
     protected $scopes
-      = [
-        'https://www.googleapis.com/auth/youtube.readonly',
-      ];
+        = [
+            'https://www.googleapis.com/auth/youtube.readonly',
+        ];
 
     /**
      * {@inheritdoc}
@@ -31,8 +31,8 @@ class SocialitesYoutubeProvider extends AbstractProvider implements ProviderInte
     protected function getAuthUrl($state)
     {
         return $this->buildAuthUrlFromBase(
-          'https://accounts.google.com/o/oauth2/v2/auth',
-          $state
+            'https://accounts.google.com/o/oauth2/v2/auth',
+            $state
         );
     }
 
@@ -50,12 +50,12 @@ class SocialitesYoutubeProvider extends AbstractProvider implements ProviderInte
     protected function getUserByToken($token)
     {
         $response = $this->getHttpClient()->get(
-          'https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true',
-          [
-            RequestOptions::HEADERS => [
-              'Authorization' => 'Bearer '.$token,
-            ],
-          ]
+            'https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true',
+            [
+                RequestOptions::HEADERS => [
+                    'Authorization' => 'Bearer '.$token,
+                ],
+            ]
         );
 
         $responseJson = json_decode((string) $response->getBody(), true);
@@ -69,11 +69,11 @@ class SocialitesYoutubeProvider extends AbstractProvider implements ProviderInte
     protected function mapUserToObject(array $user)
     {
         return (new User())->setRaw($user)->map([
-          'id'       => $user['id'] ?? null,
-          'nickname' => $user['snippet']['title'] ?? null,
-          'name'     => null,
-          'email'    => null,
-          'avatar'   => $user['snippet']['thumbnails']['high']['url'] ?? null,
+            'id' => $user['id'] ?? null,
+            'nickname' => $user['snippet']['title'] ?? null,
+            'name' => null,
+            'email' => null,
+            'avatar' => $user['snippet']['thumbnails']['high']['url'] ?? null,
         ]);
     }
 
@@ -83,7 +83,7 @@ class SocialitesYoutubeProvider extends AbstractProvider implements ProviderInte
     protected function getTokenFields($code)
     {
         return array_merge(parent::getTokenFields($code), [
-          'grant_type' => 'authorization_code',
+            'grant_type' => 'authorization_code',
         ]);
     }
 

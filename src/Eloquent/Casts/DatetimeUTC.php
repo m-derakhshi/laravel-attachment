@@ -25,7 +25,7 @@ class DatetimeUTC implements CastsAttributes
             return null;
         }
 
-        if ( ! $value instanceof CarbonInterface) {
+        if (! $value instanceof CarbonInterface) {
             $value = Carbon::parse($value);
         }
 

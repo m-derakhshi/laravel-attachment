@@ -46,9 +46,9 @@ class SocialitesYahooProvider extends AbstractProvider implements ProviderInterf
     protected function getUserByToken($token)
     {
         $response = $this->getHttpClient()->get('https://api.login.yahoo.com/openid/v1/userinfo', [
-          RequestOptions::HEADERS => [
-            'Authorization' => 'Bearer '.$token,
-          ],
+            RequestOptions::HEADERS => [
+                'Authorization' => 'Bearer '.$token,
+            ],
         ]);
 
         return json_decode((string) $response->getBody(), true);
@@ -63,11 +63,11 @@ class SocialitesYahooProvider extends AbstractProvider implements ProviderInterf
     protected function mapUserToObject(array $user)
     {
         return (new User())->setRaw($user)->map([
-          'id'       => Arr::get($user, 'sub'),
-          'nickname' => Arr::get($user, 'nickname', Arr::get($user, 'sub')),
-          'name'     => trim(sprintf('%s %s', Arr::get($user, 'given_name'), Arr::get($user, 'family_name'))),
-          'email'    => Arr::get($user, 'email'),
-          'avatar'   => Arr::get($user, 'picture'),
+            'id' => Arr::get($user, 'sub'),
+            'nickname' => Arr::get($user, 'nickname', Arr::get($user, 'sub')),
+            'name' => trim(sprintf('%s %s', Arr::get($user, 'given_name'), Arr::get($user, 'family_name'))),
+            'email' => Arr::get($user, 'email'),
+            'avatar' => Arr::get($user, 'picture'),
         ]);
     }
 
@@ -77,7 +77,7 @@ class SocialitesYahooProvider extends AbstractProvider implements ProviderInterf
     protected function getTokenFields($code)
     {
         return array_merge(parent::getTokenFields($code), [
-          'grant_type' => 'authorization_code',
+            'grant_type' => 'authorization_code',
         ]);
     }
 
