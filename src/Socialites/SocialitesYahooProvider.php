@@ -10,7 +10,6 @@ use Laravel\Socialite\Two\User;
 
 class SocialitesYahooProvider extends AbstractProvider implements ProviderInterface
 {
-
     public const IDENTIFIER = 'YAHOO';
 
     /**
@@ -80,5 +79,4 @@ class SocialitesYahooProvider extends AbstractProvider implements ProviderInterf
             'grant_type' => 'authorization_code',
         ]);
     }
-
 }

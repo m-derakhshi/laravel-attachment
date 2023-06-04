@@ -6,7 +6,6 @@ use MDerakhshi\LaravelAttachment\Eloquent\Casts\DatetimeUTC;
 
 trait HasDatetimeUTCTrait
 {
-
     public function getCasts(): array
     {
         foreach ($this->casts as $key => $value) {
@@ -17,5 +16,4 @@ trait HasDatetimeUTCTrait
 
         return parent::getCasts();
     }
-
 }

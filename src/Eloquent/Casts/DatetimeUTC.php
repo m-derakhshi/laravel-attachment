@@ -9,7 +9,6 @@ use Illuminate\Support\Carbon;
 
 class DatetimeUTC implements CastsAttributes
 {
-
     public function get(Model $model, string $key, mixed $value, array $attributes): ?Carbon
     {
         if (is_null($value)) {
@@ -31,5 +30,4 @@ class DatetimeUTC implements CastsAttributes
 
         return $value->utc() ?? null;
     }
-
 }

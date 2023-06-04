@@ -9,7 +9,6 @@ use Laravel\Socialite\Two\User;
 
 class SocialitesYoutubeProvider extends AbstractProvider implements ProviderInterface
 {
-
     public const IDENTIFIER = 'YOUTUBE';
 
     /**
@@ -86,5 +85,4 @@ class SocialitesYoutubeProvider extends AbstractProvider implements ProviderInte
             'grant_type' => 'authorization_code',
         ]);
     }
-
 }

@@ -4,7 +4,6 @@ namespace MDerakhshi\LaravelAttachment;
 
 class Helpers
 {
-
     public static function escapeUrl(string $url): string
     {
         $url = parse_url($url);
@@ -68,5 +67,4 @@ class Helpers
 
         return $responseString;
     }
-
 }
