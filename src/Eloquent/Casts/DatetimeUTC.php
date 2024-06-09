@@ -9,25 +9,47 @@ use Illuminate\Support\Carbon;
 
 class DatetimeUTC implements CastsAttributes
 {
+    /**
+     * Retrieve the value and convert to the application timezone.
+     *
+     * @param  Model  $model
+     * @param  string  $key
+     * @param  mixed  $value
+     * @param  array  $attributes
+     * @return Carbon|null
+     */
     public function get(Model $model, string $key, mixed $value, array $attributes): ?Carbon
     {
         if (is_null($value)) {
             return null;
         }
 
-        return Carbon::parse($value)->shiftTimezone('UTC')->setTimezone(config('app.timezone', 'UTC'));
+        // old code : return Carbon::parse($value)->shiftTimezone('UTC')->setTimezone(config('app.timezone', 'UTC'));
+        // Convert UTC database time to app's configured timezone for presentation
+        return Carbon::createFromFormat('Y-m-d H:i:s', $value, 'UTC')->setTimezone(config('app.timezone', 'UTC'));
     }
 
-    public function set(Model $model, string $key, mixed $value, array $attributes): ?Carbon
+    /**
+     * Prepare the value for saving to the database in UTC.
+     *
+     * @param  Model  $model
+     * @param  string  $key
+     * @param  mixed  $value
+     * @param  array  $attributes
+     * @return string|null
+     */
+    public function set(Model $model, string $key, mixed $value, array $attributes): ?string
     {
         if (is_null($value)) {
             return null;
         }
 
+        // Ensure the value is a Carbon instance and convert to UTC for storage
         if (! $value instanceof CarbonInterface) {
             $value = Carbon::parse($value);
         }
 
-        return $value->utc() ?? null;
+        // old code:        return $value->utc() ?? null;
+        return $value->setTimezone('UTC')->toDateTimeString();
     }
 }
