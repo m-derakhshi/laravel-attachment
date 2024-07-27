@@ -16,16 +16,16 @@ class DatetimeUTC implements CastsAttributes
      * @param  string  $key
      * @param  mixed  $value
      * @param  array  $attributes
-     * @return Carbon|null
+     * @return string|Carbon|null
      */
-    public function get(Model $model, string $key, mixed $value, array $attributes): ?Carbon
+    public function get(Model $model, string $key, mixed $value, array $attributes): string|null|Carbon
     {
         if (is_null($value)) {
             return null;
         }
-
-        // old code : return Carbon::parse($value)->shiftTimezone('UTC')->setTimezone(config('app.timezone', 'UTC'));
-        // Convert UTC database time to app's configured timezone for presentation
+        if (!is_string($value)) {
+            return $value;
+        }
         return Carbon::createFromFormat('Y-m-d H:i:s', $value, 'UTC')->setTimezone(config('app.timezone', 'UTC'));
     }
 
