@@ -23,10 +23,14 @@ class DatetimeUTC implements CastsAttributes
         if (is_null($value)) {
             return null;
         }
-        if (!is_string($value)) {
+        if (! is_string($value) || str_ends_with($value, 'Z')) {
             return $value;
         }
-        return Carbon::createFromFormat('Y-m-d H:i:s', $value, 'UTC')->setTimezone(config('app.timezone', 'UTC'));
+        try {
+            return Carbon::createFromFormat('Y-m-d H:i:s', $value, 'UTC')->setTimezone(config('app.timezone', 'UTC'));
+        } catch (\Throwable $e) {
+            return $value;
+        }
     }
 
     /**
