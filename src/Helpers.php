@@ -45,18 +45,18 @@ class Helpers
         return str_replace('[]', '', trim($response, '.'));
     }
 
-    public static function buildPaginateStructure(int $total, string $paginateRequestKey = 'page'): array
+    public static function buildPaginateStructure(int $lastPageNumber, string $paginateRequestKey = 'page'): array
     {
         $page = request($paginateRequestKey, 1);
-        $page = (! is_numeric($page) || $page > $total) ? $total : $page;
-        if ($total <= 9) {
-            $paginateArray = range(1, $total);
-        } elseif ($page > $total - 5) {
-            $paginateArray = array_merge([1, '...'], range($total - 6, $total));
+        $page = (! is_numeric($page) || $page > $lastPageNumber) ? $lastPageNumber : $page;
+        if ($lastPageNumber <= 9) {
+            $paginateArray = $lastPageNumber == 0 ? [1] : range(1, $lastPageNumber);
+        } elseif ($page > $lastPageNumber - 5) {
+            $paginateArray = array_merge([1, '...'], range($lastPageNumber - 6, $lastPageNumber));
         } elseif ($page < 5) {
-            $paginateArray = array_merge(range(1, 7), ['...', $total]);
+            $paginateArray = array_merge(range(1, 7), ['...', $lastPageNumber]);
         } else {
-            $paginateArray = array_merge([1, '...'], range($page - 2, min($page + 2, $total - 2)), ['...', $total]);
+            $paginateArray = array_merge([1, '...'], range($page - 2, min($page + 2, $lastPageNumber - 2)), ['...', $lastPageNumber]);
         }
 
         return $paginateArray;
