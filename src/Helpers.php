@@ -45,24 +45,6 @@ class Helpers
         return str_replace('[]', '', trim($response, '.'));
     }
 
-    public static function buildPaginateStructure(int $lastPageNumber, string $paginateRequestKey = 'page'): array
-    {
-        $page = request($paginateRequestKey, 1);
-        $page = (! is_numeric($page) || $page > $lastPageNumber) ? $lastPageNumber : $page;
-        if ($lastPageNumber <= 9) {
-            $paginateArray = $lastPageNumber == 0 ? [1] : range(1, $lastPageNumber);
-        } elseif ($page > $lastPageNumber - 5) {
-            $paginateArray = array_merge([1, '...'], range($lastPageNumber - 6, $lastPageNumber));
-        } elseif ($page < 5) {
-            $paginateArray = array_merge(range(1, 7), ['...', $lastPageNumber]);
-        } else {
-            $paginateArray = array_merge([1, '...'], range($page - 2, min($page + 2, $lastPageNumber - 2)), ['...', $lastPageNumber]);
-        }
-
-        return $paginateArray;
-    }
-
-
     public static function convertHtmlAttributes(array $data, array $acceptableKeys = null, array $aliasKeys = null): ?string
     {
         $responseString = null;
