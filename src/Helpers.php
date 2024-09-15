@@ -38,6 +38,23 @@ class Helpers
         }
     }
 
+    protected static function getImageSize(string $imagePath, string $fileName): ?array
+    {
+        if (empty($fileName)) {
+            return null;
+        }
+        $filePath = public_path(rtrim($imagePath, '/').'/'.$fileName);
+        if (! file_exists($filePath)) {
+            return null;
+        }
+        $size = getimagesize($filePath);
+        if ($size === false) {
+            return null;
+        }
+
+        return ['width' => $size[0], 'height' => $size[1]];
+    }
+
     public static function addSuffixToParentEntryName(string $name, string $suffix, string $separator = '_'): string
     {
         $response = (str_contains($name, '.') || str_contains($name, '[')) ? preg_replace('@^(\w+)([.\[])@', '\\1'.$separator.$suffix.'\\2', $name) : $name.$separator.$suffix;
