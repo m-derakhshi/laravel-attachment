@@ -11,12 +11,6 @@ class DatetimeUTC implements CastsAttributes
 {
     /**
      * Retrieve the value and convert to the application timezone.
-     *
-     * @param  Model  $model
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  array  $attributes
-     * @return string|Carbon|null
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): string|null|Carbon
     {
@@ -35,12 +29,6 @@ class DatetimeUTC implements CastsAttributes
 
     /**
      * Prepare the value for saving to the database in UTC.
-     *
-     * @param  Model  $model
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  array  $attributes
-     * @return string|null
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): ?string
     {

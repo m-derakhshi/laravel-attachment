@@ -38,7 +38,7 @@ class Helpers
         }
     }
 
-    protected static function getImageSize(string $imagePath, string $fileName): ?array
+    public static function getImageSize(string $imagePath, string $fileName): ?array
     {
         if (empty($fileName)) {
             return null;
@@ -62,7 +62,7 @@ class Helpers
         return str_replace('[]', '', trim($response, '.'));
     }
 
-    public static function convertHtmlAttributes(array $data, array $acceptableKeys = null, array $aliasKeys = null): ?string
+    public static function convertHtmlAttributes(array $data, ?array $acceptableKeys = null, ?array $aliasKeys = null): ?string
     {
         $responseString = null;
         foreach ($data as $key => $value) {
