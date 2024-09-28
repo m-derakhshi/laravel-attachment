@@ -2,7 +2,7 @@
 
 namespace MDerakhshi\LaravelAttachment;
 
-class Helpers
+class MDHelpers
 {
     public static function escapeUrl(string $url): string
     {
