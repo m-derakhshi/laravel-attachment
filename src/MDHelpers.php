@@ -49,28 +49,28 @@ class MDHelpers
         if (! in_array($fileExtension, $validExtensions)) {
             return null;
         }
-
-        if (str_starts_with($fileName, config('app.asset_url')) || str_starts_with($fileName, config('app.url'))) {
-            $size = getimagesize($fileName);
-            if ($size === false) {
+        if (str_contains($fileName, '/')) {
+            if (str_contains($fileName, '..')) {
                 return null;
             }
+            $appAssetUrl = config('app.asset_url');
+            $appUrl = config('app.url');
 
-            return ['width' => $size[0], 'height' => $size[1]];
-        } elseif (str_contains($fileName, '/')) {
-            return null;
+            if (! str_starts_with($fileName, $appAssetUrl) || ! str_starts_with($fileName, $appUrl)) {
+                return null;
+            }
+            $filePath = public_path(str_replace([$appAssetUrl, $appUrl], '', $fileName));
+        } else {
+            $filePath = public_path(rtrim($imagePath, '/').'/'.$fileName);
+
         }
-
-        $filePath = public_path(rtrim($imagePath, '/').'/'.$fileName);
         if (! file_exists($filePath)) {
             return null;
         }
-        $size = getimagesize($filePath);
-        if ($size === false) {
-            return null;
-        }
 
-        return ['width' => $size[0], 'height' => $size[1]];
+        $size = getimagesize($filePath);
+
+        return $size ? ['width' => $size[0], 'height' => $size[1]] : null;
     }
 
     public static function addSuffixToParentEntryName(string $name, string $suffix, string $separator = '_'): string
