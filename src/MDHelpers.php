@@ -43,6 +43,24 @@ class MDHelpers
         if (empty($fileName)) {
             return null;
         }
+
+        $validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        if (! in_array($fileExtension, $validExtensions)) {
+            return null;
+        }
+
+        if (str_starts_with($fileName, config('app.asset_url')) || str_starts_with($fileName, config('app.url'))) {
+            $size = getimagesize($fileName);
+            if ($size === false) {
+                return null;
+            }
+
+            return ['width' => $size[0], 'height' => $size[1]];
+        } elseif (str_contains($fileName, '/')) {
+            return null;
+        }
+
         $filePath = public_path(rtrim($imagePath, '/').'/'.$fileName);
         if (! file_exists($filePath)) {
             return null;
