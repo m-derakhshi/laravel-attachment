@@ -9,6 +9,8 @@ use Illuminate\Support\Carbon;
 
 class DatetimeUTC implements CastsAttributes
 {
+    public bool $withoutObjectCaching = true;
+
     /**
      * Retrieve the value and convert to the application timezone.
      */
