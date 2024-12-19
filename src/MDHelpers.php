@@ -4,27 +4,6 @@ namespace MDerakhshi\LaravelAttachment;
 
 class MDHelpers
 {
-    public static function escapeUrl(string $url): string
-    {
-        $url = parse_url($url);
-        $url['path'] = $url['path'] ?? '';
-        $url['query'] = $url['query'] ?? '';
-
-        if ($url['path'] !== '') {
-            $url['path'] = implode('/', array_map('rawurlencode', explode('/', $url['path'])));
-        }
-
-        if ($url['query'] !== '') {
-            $url['query'] = "?{$url['query']}";
-        }
-
-        return str_replace(
-            ['&', "'", '"', '>', '<'],
-            ['&amp;', '&apos;', '&quot;', '&gt;', '&lt;'],
-            $url['scheme']."://{$url['host']}{$url['path']}{$url['query']}"
-        );
-    }
-
     public static function makeDirectoryPath($path): void
     {
         if (! file_exists($path) || ! is_dir($path)) {
