@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 class MDHelpers
 {
-    public function generateUniqueLicenseKey(string $input = '', int $length = 256): string
+    public static function generateUniqueLicenseKey(string $input = '', int $length = 256): string
     {
         if ($length < 32) {
             $length = 32;
