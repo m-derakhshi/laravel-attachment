@@ -2,8 +2,26 @@
 
 namespace MDerakhshi\LaravelAttachment;
 
+use Illuminate\Support\Str;
+
 class MDHelpers
 {
+    public function generateUniqueLicenseKey(string $input = '', int $length = 256): string
+    {
+        if ($length < 32) {
+            $length = 32;
+        }
+
+        $randomData = $input.microtime(true).Str::random(32);
+        $hash = hash('sha512', $randomData);
+
+        while (strlen($hash) < $length) {
+            $hash .= hash('sha512', $hash.Str::random(32));
+        }
+
+        return strtoupper(substr($hash, 0, $length));
+    }
+
     public static function makeDirectoryPath($path): void
     {
         if (! file_exists($path) || ! is_dir($path)) {

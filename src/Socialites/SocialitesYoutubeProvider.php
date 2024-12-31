@@ -67,7 +67,7 @@ class SocialitesYoutubeProvider extends AbstractProvider implements ProviderInte
      */
     protected function mapUserToObject(array $user)
     {
-        return (new User())->setRaw($user)->map([
+        return (new User)->setRaw($user)->map([
             'id' => $user['id'] ?? null,
             'nickname' => $user['snippet']['title'] ?? null,
             'name' => null,
