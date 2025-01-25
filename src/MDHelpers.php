@@ -6,6 +6,12 @@ use Illuminate\Support\Str;
 
 class MDHelpers
 {
+    public static function cleanContent(string $content, string $availableTags = '<br>'): ?string
+    {
+        return preg_replace(
+            '/^(<br>\s*)+|(<br>\s*)+$/', '', preg_replace('@(<br[\s/]*>\s*)+@', '<br>', strip_tags(nl2br($content, false), $availableTags)));
+    }
+
     public static function generateUniqueLicenseKey(string $input = '', int $length = 255): string
     {
         if ($length < 32) {
