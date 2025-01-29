@@ -12,7 +12,7 @@ class MDHelpers
             '/^(<br>\s*)+|(<br>\s*)+$/', '', preg_replace('@(<br[\s/]*>\s*)+@', '<br>', strip_tags(nl2br($content, false), $availableTags)));
     }
 
-    public function sortArrayByColumnSort(array $array, string $direction = 'asc'): array
+    public static function sortArrayByColumnSort(array &$array, string $direction = 'asc'): void
     {
         $array = array_map(function ($item) {
             $item['sort'] = $item['sort'] ?? null;
@@ -38,7 +38,7 @@ class MDHelpers
             return $a['sort'] <=> $b['sort'];
         });
 
-        return array_values($array);
+        $array = array_values($array);
     }
 
     public static function generateUniqueLicenseKey(string $input = '', int $length = 255): string
