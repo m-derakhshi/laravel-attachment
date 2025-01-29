@@ -12,6 +12,35 @@ class MDHelpers
             '/^(<br>\s*)+|(<br>\s*)+$/', '', preg_replace('@(<br[\s/]*>\s*)+@', '<br>', strip_tags(nl2br($content, false), $availableTags)));
     }
 
+    public function sortArrayByColumnSort(array $array, string $direction = 'asc'): array
+    {
+        $array = array_map(function ($item) {
+            $item['sort'] = $item['sort'] ?? null;
+
+            return $item;
+        }, $array);
+
+        usort($array, function ($a, $b) use ($direction) {
+            if ($a['sort'] === null && $b['sort'] === null) {
+                return 0;
+            }
+            if ($a['sort'] === null) {
+                return 1;
+            }
+            if ($b['sort'] === null) {
+                return -1;
+            }
+
+            if ($direction === 'desc') {
+                return $b['sort'] <=> $a['sort'];
+            }
+
+            return $a['sort'] <=> $b['sort'];
+        });
+
+        return array_values($array);
+    }
+
     public static function generateUniqueLicenseKey(string $input = '', int $length = 255): string
     {
         if ($length < 32) {
