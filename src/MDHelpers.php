@@ -6,8 +6,12 @@ use Illuminate\Support\Str;
 
 class MDHelpers
 {
-    public static function cleanContent(string $content, string $availableTags = '<br>'): ?string
+    public static function cleanContent(?string $content, string $availableTags = '<br>'): ?string
     {
+        if (is_null($content)) {
+            return null;
+        }
+
         return preg_replace(
             '/^(<br>\s*)+|(<br>\s*)+$/', '', preg_replace('@(<br[\s/]*>\s*)+@', '<br>', strip_tags(nl2br($content, false), $availableTags)));
     }
