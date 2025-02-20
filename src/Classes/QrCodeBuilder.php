@@ -37,8 +37,15 @@ class QrCodeBuilder
         foreach ($code['b'] as $y => $row) {
             foreach ($row as $x => $val) {
                 if ($val) {
-                    $fill = in_array($x.'-'.$y, $this->finderPatternPositions) ? 'fill="'.$this->options['finder_pattern_color'].'"' : null;
-                    $svg .= '<rect x="'.$x.'" y="'.$y.'" width="1" height="1" '.$fill.' />';
+                    if (in_array($x.'-'.$y, $this->finderPatternPositions)) {
+                        $color = ! empty($this->options['finder_pattern_color']) ? $this->options['finder_pattern_color'] : $this->options['foreground_color'];
+                        $svg .= '<rect x="'.$x.'" y="'.$y.'" width="1" height="1" fill="'.$color.'" />';
+                    } else {
+                        $cx = $x + 0.5;
+                        $cy = $y + 0.5;
+                        $r = 0.4;
+                        $svg .= '<circle cx="'.$cx.'" cy="'.$cy.'" r="'.$r.'" />';
+                    }
                 }
             }
         }
