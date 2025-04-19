@@ -16,6 +16,34 @@ class MDHelpers
             '/^(<br>\s*)+|(<br>\s*)+$/', '', preg_replace('@(<br[\s/]*>\s*)+@', '<br>', strip_tags(nl2br($content, false), $availableTags)));
     }
 
+    public static function updateGeomFromCoordinates(Model $model, string|array $prefixes): void
+    {
+        $prefixes = is_array($prefixes) ? $prefixes : [$prefixes];
+
+        foreach ($prefixes as $prefix) {
+            $latField = "{$prefix}_latitude";
+            $lngField = "{$prefix}_longitude";
+            $geomField = "{$prefix}_geom";
+
+            $lat = $model->{$latField} ?? null;
+            $lng = $model->{$lngField} ?? null;
+
+            if (! is_null($lat) && ! is_null($lng)) {
+                $pointWKT = "POINT({$lat} {$lng})";
+
+                if (
+                    $model->isDirty($latField) ||
+                    $model->isDirty($lngField) ||
+                    is_null($model->{$geomField})
+                ) {
+                    $model->{$geomField} = DB::raw("ST_GeomFromText('{$pointWKT}')");
+                }
+            } elseif (! is_null($model->{$geomField})) {
+                $model->{$geomField} = null;
+            }
+        }
+    }
+
     public static function sortArrayByColumnSort(array &$array, string $direction = 'asc'): void
     {
         $array = array_map(function ($item) {
