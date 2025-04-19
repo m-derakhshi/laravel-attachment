@@ -3,6 +3,7 @@
 namespace MDerakhshi\LaravelAttachment;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class MDHelpers
@@ -30,13 +31,12 @@ class MDHelpers
             $lng = $model->{$lngField} ?? null;
 
             if (! is_null($lat) && ! is_null($lng)) {
-                $pointWKT = "POINT({$lat} {$lng})";
-
                 if (
                     $model->isDirty($latField) ||
                     $model->isDirty($lngField) ||
                     is_null($model->{$geomField})
                 ) {
+                    $pointWKT = "POINT({$lat} {$lng})";
                     $model->{$geomField} = DB::raw("ST_GeomFromText('{$pointWKT}')");
                 }
             } elseif (! is_null($model->{$geomField})) {
