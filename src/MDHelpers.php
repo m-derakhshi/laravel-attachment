@@ -2,6 +2,7 @@
 
 namespace MDerakhshi\LaravelAttachment;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class MDHelpers
