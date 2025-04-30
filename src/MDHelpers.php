@@ -45,7 +45,7 @@ class MDHelpers
         }
     }
 
-    public static function cleanNumber($number)
+    public static function normalizeNumberValue($number)
     {
         if (is_numeric($number)) {
             return ($number == (int) $number) ? (int) $number : (float) $number;
