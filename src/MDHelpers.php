@@ -45,6 +45,15 @@ class MDHelpers
         }
     }
 
+    public static function cleanNumber($number)
+    {
+        if (is_numeric($number)) {
+            return ($number == (int) $number) ? (int) $number : (float) $number;
+        }
+
+        return $number;
+    }
+
     public static function sortArrayByColumnSort(array &$array, string $direction = 'asc'): void
     {
         $array = array_map(function ($item) {
