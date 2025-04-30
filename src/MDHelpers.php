@@ -45,13 +45,13 @@ class MDHelpers
         }
     }
 
-    public static function normalizeNumberValue($number)
+    public static function normalizeNumberValue($value)
     {
-        if (is_numeric($number)) {
-            return ($number == (int) $number) ? (int) $number : (float) $number;
+        if (is_string($value) && is_numeric($value)) {
+            return ((float) $value == (int) $value) ? (int) $value : (float) $value;
         }
 
-        return $number;
+        return $value;
     }
 
     public static function sortArrayByColumnSort(array &$array, string $direction = 'asc'): void
