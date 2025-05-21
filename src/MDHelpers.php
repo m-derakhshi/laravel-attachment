@@ -84,6 +84,19 @@ class MDHelpers
         return $flat;
     }
 
+    public static function normalizeCollectionParentIds(Collection $items, string $idKey = 'id', string $parentKey = 'parent_id'): Collection
+    {
+        $allIds = $items->pluck($idKey)->all();
+
+        return $items->map(function ($item) use ($allIds, $parentKey) {
+            if ($item->$parentKey !== null && ! in_array($item->$parentKey, $allIds)) {
+                $item->$parentKey = null;
+            }
+
+            return $item;
+        });
+    }
+
     public static function sortArrayByColumnSort(array &$array, string $direction = 'asc'): void
     {
         $array = array_map(function ($item) {
