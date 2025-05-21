@@ -3,6 +3,7 @@
 namespace MDerakhshi\LaravelAttachment;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -52,6 +53,35 @@ class MDHelpers
         }
 
         return $value;
+    }
+
+    public static function flattenTreeArray(array $elements, $parentId = null, $parentKey = 'parent_id', $idKey = 'id'): array
+    {
+        $flat = [];
+
+        foreach ($elements as $element) {
+            if (($element[$parentKey] ?? null) === $parentId) {
+                $flat[] = $element;
+                $children = self::flattenTreeArray($elements, $element[$idKey], $parentKey, $idKey);
+                $flat = array_merge($flat, $children);
+            }
+        }
+
+        return $flat;
+    }
+
+    public static function flattenTreeCollection(Collection $elements, $parentId = null, $parentKey = 'parent_id', $idKey = 'id'): Collection
+    {
+        $flat = collect();
+
+        $elements->where($parentKey, $parentId)
+            ->each(function ($element) use ($elements, &$flat, $parentKey, $idKey) {
+                $flat->push($element);
+                $children = self::flattenTreeCollection($elements, $element->$idKey, $parentKey, $idKey);
+                $children->each(fn ($child) => $flat->push($child));
+            });
+
+        return $flat;
     }
 
     public static function sortArrayByColumnSort(array &$array, string $direction = 'asc'): void
