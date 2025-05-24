@@ -5,6 +5,7 @@ namespace MDerakhshi\LaravelAttachment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class MDHelpers
@@ -152,6 +153,15 @@ class MDHelpers
                     mkdir($newPath);
                 }
             }
+        }
+    }
+
+    public static function makeStorageDirectoryPath(string $path, ?string $disk = null): void
+    {
+        $diskInstance = $disk ? Storage::disk($disk) : Storage::disk(config('filesystems.default'));
+
+        if (! $diskInstance->exists($path)) {
+            $diskInstance->makeDirectory($path);
         }
     }
 
