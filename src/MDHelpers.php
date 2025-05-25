@@ -143,7 +143,7 @@ class MDHelpers
         return strtoupper(substr($hash, 0, $length));
     }
 
-    public static function makeDirectoryPath($path): void
+    public static function makeDirectoryPath(string $path): void
     {
         if (! file_exists($path) || ! is_dir($path)) {
             $newPath = '/';
@@ -161,7 +161,13 @@ class MDHelpers
         $diskInstance = $disk ? Storage::disk($disk) : Storage::disk(config('filesystems.default'));
 
         if (! $diskInstance->exists($path)) {
-            $diskInstance->makeDirectory($path);
+            $newPath = '/';
+            foreach (explode('/', $path) as $route) {
+                $newPath .= $route.'/';
+                if (! $diskInstance->exists($newPath)) {
+                    $diskInstance->makeDirectory($newPath);
+                }
+            }
         }
     }
 
