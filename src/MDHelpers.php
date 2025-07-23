@@ -47,6 +47,15 @@ class MDHelpers
         }
     }
 
+    public function shortString(string $value, int $maxLength = 20, int $prefixLength = 15, int $suffixLength = 5): string
+    {
+        if (strlen($value) <= $maxLength) {
+            return $value;
+        }
+
+        return substr($value, 0, $prefixLength).'...'.substr($value, -$suffixLength);
+    }
+
     public static function normalizeNumberValue($value)
     {
         if (is_string($value) && is_numeric($value)) {
