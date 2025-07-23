@@ -47,7 +47,7 @@ class MDHelpers
         }
     }
 
-    public function shortString(string $value, int $maxLength = 20, int $prefixLength = 15, int $suffixLength = 5): string
+    public static function shortString(string $value, int $maxLength = 20, int $prefixLength = 15, int $suffixLength = 5): string
     {
         if (strlen($value) <= $maxLength) {
             return $value;
