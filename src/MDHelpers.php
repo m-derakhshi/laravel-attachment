@@ -56,10 +56,19 @@ class MDHelpers
         return substr($value, 0, $prefixLength).'...'.substr($value, -$suffixLength);
     }
 
-    public static function normalizeNumberValue($value)
+    public static function normalizeNumberValue($value, bool $format_integer_part = false)
     {
         if (is_string($value) && is_numeric($value)) {
-            return ((float) $value == (int) $value) ? (int) $value : (float) $value;
+            $value = ((float) $value == (int) $value) ? (int) $value : (float) $value;
+            if ($format_integer_part) {
+                if (is_int($value)) {
+                    return number_format($value);
+                }
+
+                [$intPart, $decPart] = explode('.', (string) $value);
+
+                return number_format($intPart).'.'.$decPart;
+            }
         }
 
         return $value;
