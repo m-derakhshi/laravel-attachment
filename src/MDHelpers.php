@@ -76,7 +76,7 @@ class MDHelpers
 
     public static function cleanDecimalString(float $amount): string
     {
-        return rtrim(rtrim(number_format($amount, 16, '.', ''), '0'), '.');
+        return rtrim(rtrim(number_format($amount, 9, '.', ''), '0'), '.');
     }
 
     public static function flattenTreeArray(array $elements, $parentId = null, $parentKey = 'parent_id', $idKey = 'id'): array
