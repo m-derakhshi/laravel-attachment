@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class MDHelpers
 {
@@ -150,20 +149,21 @@ class MDHelpers
         $array = array_values($array);
     }
 
-    public static function generateUniqueLicenseKey(string $input = '', int $length = 255): string
+    public static function generateUniqueLicenseKey(int $length = 64, ?string $prefix = null): string
     {
         if ($length < 32) {
             $length = 32;
         }
 
-        $randomData = $input.microtime(true).Str::random(32);
-        $hash = hash('sha512', $randomData);
-
-        while (strlen($hash) < $length) {
-            $hash .= hash('sha512', $hash.Str::random(32));
+        $prefix = $prefix ?? '';
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $result = '';
+        $tokenLength = $length - strlen($prefix);
+        for ($i = 0; $i < $tokenLength; $i++) {
+            $result .= $characters[random_int(0, strlen($characters) - 1)];
         }
 
-        return strtoupper(substr($hash, 0, $length));
+        return $prefix.$result;
     }
 
     public static function makeDirectoryPath(string $path): void
