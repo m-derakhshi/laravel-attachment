@@ -73,8 +73,12 @@ class MDHelpers
         return $value;
     }
 
-    public static function cleanDecimalString(float $amount): string
+    public static function cleanDecimalString(?float $amount): string
     {
+        if (is_null($amount)) {
+            return '0';
+        }
+
         return rtrim(rtrim(number_format($amount, 9, '.', ''), '0'), '.');
     }
 
