@@ -73,6 +73,20 @@ class MDHelpers
         return $value;
     }
 
+    public static function strToSlug($title, $separator = '-', $dictionary = ['@' => 'at']): string
+    {
+        $flip = $separator === '-' ? '_' : '-';
+        $title = preg_replace('!['.preg_quote($flip).']+!u', $separator, $title);
+        foreach ($dictionary as $key => $value) {
+            $dictionary[$key] = $separator.$value.$separator;
+        }
+        $title = str_replace(array_keys($dictionary), array_values($dictionary), $title);
+        $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', $separator, mb_strtolower($title, 'UTF-8'));
+        $title = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $title);
+
+        return trim($title, $separator);
+    }
+
     public static function cleanDecimalString(?float $amount): string
     {
         if (is_null($amount)) {
