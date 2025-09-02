@@ -73,6 +73,11 @@ class MDHelpers
         return $value;
     }
 
+    public static function getContentReadTime(?string $content, int $wordsPerMinute = 200): int
+    {
+        return max(1, ceil(str_word_count(strip_tags($content)) / $wordsPerMinute));
+    }
+
     public static function strToSlug($title, $separator = '-', $dictionary = ['@' => 'at']): string
     {
         $flip = $separator === '-' ? '_' : '-';
