@@ -78,6 +78,11 @@ class MDHelpers
         return max(1, ceil(str_word_count(strip_tags($content)) / $wordsPerMinute));
     }
 
+    public static function br2nl(?string $text): ?string
+    {
+        return $text ? preg_replace('/<br\s*\/?>/i', "\n", $text) : null;
+    }
+
     public static function strToSlug($title, $separator = '-', $dictionary = ['@' => 'at']): string
     {
         $flip = $separator === '-' ? '_' : '-';
